@@ -103,8 +103,8 @@ if ($id_topic_spec !== $id_topic) {
                 echo '<p class="message__user-login" style="color: red;">' . $first_login['login'] . '</p>' . '<p style="color: red; text-align: center; margin-top: 8px; font-size: 14px;">АДМИНИСТРАТОР</p>';
             } else {
                 echo '<p class="message__user-login">' . $first_login['login'] . '</p>';
-                echo '
-                <button class="message__user-ban" type="submit">БАН</button>';
+//                echo '
+//                <button class="message__user-ban" type="submit">БАН</button>';
             }
             echo
             '</div>
@@ -127,11 +127,11 @@ if ($id_topic_spec !== $id_topic) {
                     echo '<p class="message__user-login" style="color: red;">' . $logins[$i][0] . '</p>' . '<p style="color: red; text-align: center; margin-top: 8px; font-size: 14px;">АДМИНИСТРАТОР</p>';
                 } else {
                     echo '<p class="message__user-login">' . $logins[$i][0] . '</p>';
-                    echo '
-                    <form action="/core/ban-user.php" method="get">' .
-                        '<button class="message__user-ban" type="submit" name="ban" value="' . $logins[$i][0] . '">'. 'БАН</button>' .
-                        '</form>';
-
+//                    echo '
+//                    <form action="/core/ban-user.php" method="get">' .
+//                        '<button class="message__user-ban" type="submit" name="ban" value="' . $logins[$i][0] . '">'. 'БАН</button>' .
+//                        '</form>';
+//
                 }
                 echo
                 '</div>

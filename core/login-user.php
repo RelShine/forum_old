@@ -1,23 +1,23 @@
 <?php
 session_start();
-$dbh= require_once 'connection.php';
+$connection = require_once 'connection.php';
 
 $login = $_POST['login'];
 $password = $_POST['password'];
 
-$login_spec = $mysqli->real_escape_string($login);
+$login_spec = $connection->real_escape_string($login);
 if ($login_spec !== $login) {
     echo 'login-incorrect-slash';
     exit();
 }
 
-$password_spec = $mysqli->real_escape_string($password);
+$password_spec = $connection->real_escape_string($password);
 if ($password_spec !== $password) {
     echo 'password-incorrect-slash';
     exit();
 }
 
-$query = $mysqli->query("SELECT `password` FROM `users` WHERE `login` = '$login'");
+$query = $connection->query("SELECT `password` FROM `users` WHERE `login` = '$login'");
 
 if (mysqli_num_rows($query) < 1) {
     echo 0;
@@ -26,7 +26,7 @@ if (mysqli_num_rows($query) < 1) {
 
 $arr = mysqli_fetch_assoc($query);
 
-$query_id_user = $mysqli->query("SELECT `id` FROM `users` WHERE `login` = '$login'");
+$query_id_user = $connection->query("SELECT `id` FROM `users` WHERE `login` = '$login'");
 $id_user_arr = mysqli_fetch_assoc($query_id_user);
 
 $res = password_verify($password, $arr['password']);

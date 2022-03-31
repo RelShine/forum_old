@@ -1,25 +1,16 @@
 <?php
 session_start();
 require_once __DIR__ . '/templates/header.php';
-$dbh = require_once __DIR__ . '/core/connection.php';
+$connection = require_once __DIR__ . '/core/connection.php';
 if (isset($_SESSION['auth'])) {
     $login = $_SESSION['login'];
-    $queryExist = $dbh->prepare('SELECT COUNT(`login`) FROM `users` WHERE `login` = :login');
-    $queryExist->execute(['login' => $login]);
-    $arrExist = $queryExist->fetchColumn();
+    $queryExist = mysqli_query($connection, "SELECT COUNT(`login`) FROM `users` WHERE `login` = '$login'");
+    $arrExist = mysqli_fetch_all($queryExist);
     if (count($arrExist) > 0) {
         $_SESSION['index'] = 'yes';
     } else {
         session_destroy();
     }
-//    $queryBan = $dbh->query('SELECT `login`, `banned` FROM `users` WHERE `banned` = 1");
-//
-//    $ban_arr = mysqli_fetch_all($query_ban);
-//    foreach ($ban_arr as $ban_user) {
-//        if ($ban_user[0] === $login) {
-//            exit('Вы были заблокированы');
-//        }
-//    }
 }
 ?>
     <title>Форум Почты России - Главная страница</title>
@@ -42,14 +33,11 @@ if (isset($_SESSION['auth'])) {
             <div class="header__links">
                 <?php
                 if (isset($_SESSION['auth'])) {
-                    echo ' < a class="header__links link-profile" href = "/pages/profile.php" > Личный кабинет </a > ';
-                    echo '<a class="header__links link-logout" href = "/core/logout.php" > Выйти</a > ';
-                    if ($_SESSION['login'] === 'Babinov') {
-                        echo ' < a class="header__links link-calc" href = "/calc/index.php" style = "color: #ff0000;" > Калькулятор</a > ';
-                    }
+                    echo '<a class="header__links link-profile" href="/pages/profile.php">Личный кабинет</a>';
+                    echo '<a class="header__links link-logout" href="/core/logout.php">Выйти</a>';
                 } else {
-                    echo '<a class="header__links link-auth" data-fancybox href = "#login" > Авторизация</a > ';
-                    echo '<a class="header__links link-register" href="/pages/register.php" > Регистрация</a > ';
+                    echo '<a class="header__links link-auth" data-fancybox href="#login">Авторизация</a>';
+                    echo '<a class="header__links link-register" href="/pages/register.php">Регистрация</a>';
                 }
                 ?>
             </div>
