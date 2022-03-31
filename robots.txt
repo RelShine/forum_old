@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /pages/profile.php
+Disallow: *?id=
